@@ -110,23 +110,36 @@ fetch(fdata.apiurl)
   .then(json =>{
     // 获取友链朋友圈基本信息
     var statistical_data = json.statistical_data;
+    //存入本地存储
+    localStorage.setItem("statisticalList",JSON.stringify(statistical_data))
     // console.log(statistical_data);
-    loadStatistical(statistical_data);
-
     // 获取友链朋友圈文章列表
     var article_data = eval(json.article_data);
     // console.log(article_data);
     // 按创建时间排序
     var article_sortcreated = quickSort(article_data,'time');
+    //存入本地存储
     localStorage.setItem("createdList",JSON.stringify(article_sortcreated))
-    loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+    // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
     // 按更新时间排序
     var article_sortupdated = quickSort(article_data,'updated');
+    //存入本地存储
     localStorage.setItem("updatedList",JSON.stringify(article_sortupdated))
     // console.log(article_sortcreated);
     // console.log(article_sortupdated);
   }
 )
+function initFriendCircle(){
+  var statistical_data = JSON.parse(localStorage.getItem("statisticalList"));
+  var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+  // var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+  loadStatistical(statistical_data);
+  loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+}
+
+
+
 function loadMoreArticle(){
   // 获取当前已加载的文章数
   var currentArticle = document.getElementsByClassName('fArticleItem').length;
