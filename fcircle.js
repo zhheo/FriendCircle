@@ -1,8 +1,8 @@
 // 全局变量声明区域
 const fdata = {
   apiurl: 'https://hexo-friendcircle-api.vercel.app/api',
-  maxnumber: 20, //【可选】页面展示文章数量
-  addnumber: 10, //【可选】每次加载增加的篇数
+  initnumber: 2, //【可选】页面初始化展示文章数量
+  stepnumber: 1, //【可选】每次加载增加的篇数
   opentype: '_blank' ,//【可选】'_blank'打开新标签,'_self'本窗口打开,默认为'_blank'
   nofollow: true ,//【可选】开启禁止搜索引擎抓取,默认开启
   preload: ''//【可选】加载动画图片链接
@@ -28,7 +28,7 @@ function quickSort(arr, keyword){
 // ======================================================
 
 // 打印友链基本信息
-function showStatistical(sdata){
+function loadStatistical(sdata){
 // 友链页面的挂载容器
 var container = document.getElementById('fcircleContainer');
 // 基本信息的html结构
@@ -56,43 +56,47 @@ var messageBoard =`
   </div>
 </div>
 `;
-// 为了便于和后续拼接，选择从容器尾部插入
-container.insertAdjacentHTML('beforeend', messageBoard);
+// 原则上信息面板应该在最前面，所以用afterbegin表示从开始符后面插入
+container.insertAdjacentHTML('afterbegin', messageBoard);
+
+// 加载更多按钮
+var loadMoreBtn = `
+<div id="fcircleMoreBtn" onclick="loadMoreArticle()">
+  <i class="fas fa-angle-double-down"></i>
+</div>
+`
+// 为了不影响文章加载，选择afterend表示从结束符后面插入
+container.insertAdjacentHTML('afterend', loadMoreBtn);
 }
 
 // ======================================================
 // 打印友链内容
-function showArticleItem(adata,maxnumber){
+function loadArticleItem(datalist,start,end){
 // 声明友链页面的挂载容器
 var container = document.getElementById('fcircleContainer');
 // 循环读取输出友链信息
-for (var i = 0;i<maxnumber;i++){
-var item = adata[i];
+for (var i = start;i<end;i++){
+var item = datalist[i];
 var articleItem=`
-
   <div class="fArticleItem">
-
     <div class="fArticleAvatar">
-    <a class="fArticlelink fAvatar" href="${item.link}">
-      <img src="${item.avatar}" alt="avatar">
+      <a class="fArticlelink fAvatar" href="${item.link}">
+        <img src="${item.avatar}" alt="avatar">
       </a>
       <div class="fArticleAuthor">
         ${item.author}
       </div>
     </div>
-
-
     <div class="fArticleMessage">
       <a class="fArticleTitle"  href="${item.link}" data-title="${item.title}">
         ${item.title}
       </a>
       <div class="fArticleTime">
         <span class="fArticleCreated"><i class="far fa-calendar-alt">发表于</i>${item.created}</span>
-        <span class="fArticleUpdated"><i class="fas fa-history">发表于</i>${item.updated}</span>
+        <span class="fArticleUpdated"><i class="fas fa-history">更新于</i>${item.updated}</span>
       </div>
     </div>
   </div>
-
 `
 // 为了便于和后续拼接，选择从容器尾部插入
 container.insertAdjacentHTML('beforeend', articleItem);
@@ -105,19 +109,29 @@ fetch(fdata.apiurl)
   .then(res => res.json())
   .then(json =>{
     // 获取友链朋友圈基本信息
-    const statistical_data = json.statistical_data;
+    var statistical_data = json.statistical_data;
     // console.log(statistical_data);
-    showStatistical(statistical_data);
+    loadStatistical(statistical_data);
 
     // 获取友链朋友圈文章列表
-    const article_data = eval(json.article_data);
+    var article_data = eval(json.article_data);
     // console.log(article_data);
     // 按创建时间排序
-    const article_sorttime = quickSort(article_data,'time');
-    showArticleItem(article_sorttime ,5)
+    var article_sortcreated = quickSort(article_data,'time');
+    localStorage.setItem("createdList",JSON.stringify(article_sortcreated))
+    loadArticleItem(article_sortcreated ,0,fdata.initnumber)
     // 按更新时间排序
-    const article_sortupdated = quickSort(article_data,'updated');
-    // console.log(article_sorttime);
+    var article_sortupdated = quickSort(article_data,'updated');
+    localStorage.setItem("updatedList",JSON.stringify(article_sortupdated))
+    // console.log(article_sortcreated);
     // console.log(article_sortupdated);
   }
 )
+function loadMoreArticle(){
+  // 获取当前已加载的文章数
+  var currentArticle = document.getElementsByClassName('fArticleItem').length;
+  var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+  // console.log(article_sortcreated);
+  // 从当前文章的下一篇开始，加载下一阶程篇数
+  loadArticleItem(article_sortcreated,currentArticle,currentArticle + fdata.stepnumber)
+}
