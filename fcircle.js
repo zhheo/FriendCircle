@@ -69,25 +69,30 @@ var container = document.getElementById('fcircleContainer');
 for (var i = 0;i<maxnumber;i++){
 var item = adata[i];
 var articleItem=`
-<a class="fArticlelink" href="${item.link}">
+
   <div class="fArticleItem">
+
     <div class="fArticleAvatar">
-      <img class="fAvatar" src="${item.avatar}" alt="avatar">
+    <a class="fArticlelink fAvatar" href="${item.link}">
+      <img src="${item.avatar}" alt="avatar">
+      </a>
       <div class="fArticleAuthor">
         ${item.author}
       </div>
     </div>
+
+
     <div class="fArticleMessage">
-      <div class="fArticleTitle">
+      <a class="fArticleTitle"  href="${item.link}" data-title="${item.title}">
         ${item.title}
-      </div>
+      </a>
       <div class="fArticleTime">
         <span class="fArticleCreated"><i class="far fa-calendar-alt">发表于</i>${item.created}</span>
         <span class="fArticleUpdated"><i class="fas fa-history">发表于</i>${item.updated}</span>
       </div>
     </div>
   </div>
-</a>
+
 `
 // 为了便于和后续拼接，选择从容器尾部插入
 container.insertAdjacentHTML('beforeend', articleItem);

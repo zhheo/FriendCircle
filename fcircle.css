@@ -78,7 +78,9 @@
 #fcircleContainer .fArticleItem .fArticleAvatar .fAvatar {
   align-self: center;
   text-align: center;
-  width: auto;
+}
+#fcircleContainer .fArticleItem .fArticleAvatar .fAvatar img {
+  width: 75px;
   height: 75px;
   margin: 15px 5px;
   border-radius: 25px;
@@ -99,13 +101,35 @@
   flex-direction: column;
   width: 70%;
 }
-#fcircleContainer .fArticleItem .fArticleMessage .fArticleTitle {
+#fcircleContainer .fArticleItem .fArticleMessage a.fArticleTitle {
   align-self: center;
   text-align: center;
   font-size: 20px;
   line-height: 40px;
   width: 80%;
   padding: 0 10%;
+  color: rgba(60,60,61,0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#fcircleContainer .fArticleItem .fArticleMessage a.fArticleTitle:hover:before {
+  position: fixed;
+  width: fit-content;
+  max-width: 80%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 10%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  content: attr(data-title);
+  font-size: 20px;
+  color: #fff;
+  padding: 10px;
+  background-color: rgba(60,60,61,0.7);
+  white-space: break-spaces;
 }
 #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime {
   width: 100%;
@@ -135,10 +159,8 @@
     font-size: 16px;
   }
 }
-@media screen and (max-width: 560px) {
-  #fcircleContainer .fArticleItem .fArticleMessage .fArticleTitle {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+@media screen and (max-width: 400px) {
+  #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime i {
+    display: none;
   }
 }
