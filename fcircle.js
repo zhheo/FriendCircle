@@ -1,8 +1,8 @@
 // 全局变量声明区域
 const fdata = {
   apiurl: 'https://hexo-friendcircle-api.vercel.app/api',
-  initnumber: 2, //【可选】页面初始化展示文章数量
-  stepnumber: 1, //【可选】每次加载增加的篇数
+  initnumber: 20, //【可选】页面初始化展示文章数量
+  stepnumber: 10, //【可选】每次加载增加的篇数
   opentype: '_blank' ,//【可选】'_blank'打开新标签,'_self'本窗口打开,默认为'_blank'
   nofollow: true ,//【可选】开启禁止搜索引擎抓取,默认开启
   preload: ''//【可选】加载动画图片链接
@@ -128,17 +128,17 @@ fetch(fdata.apiurl)
     // console.log(article_sortupdated);
   }
 )
+// 初始化方法
 function initFriendCircle(){
   var statistical_data = JSON.parse(localStorage.getItem("statisticalList"));
   var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
-  var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+  // var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
   loadStatistical(statistical_data);
   loadArticleItem(article_sortcreated ,0,fdata.initnumber)
-  loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
 }
 
-
-
+// 加载更多文章
 function loadMoreArticle(){
   // 获取当前已加载的文章数
   var currentArticle = document.getElementsByClassName('fArticleItem').length;
@@ -146,4 +146,6 @@ function loadMoreArticle(){
   // console.log(article_sortcreated);
   // 从当前文章的下一篇开始，加载下一阶程篇数
   loadArticleItem(article_sortcreated,currentArticle,currentArticle + fdata.stepnumber)
+  // 向上滚动一篇文章的距离
+  window.scrollBy(0,180)
 }
