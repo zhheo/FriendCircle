@@ -104,7 +104,7 @@ container.insertAdjacentHTML('beforeend', articleItem);
 }
 
 // ======================================================
-// 抓取友链api信息
+// 抓取友链api信息并进行分割处理。存入本地存储
 fetch(fdata.apiurl)
   .then(res => res.json())
   .then(json =>{
@@ -120,7 +120,6 @@ fetch(fdata.apiurl)
     var article_sortcreated = quickSort(article_data,'time');
     //存入本地存储
     localStorage.setItem("createdList",JSON.stringify(article_sortcreated))
-    // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
     // 按更新时间排序
     var article_sortupdated = quickSort(article_data,'updated');
     //存入本地存储
@@ -132,10 +131,10 @@ fetch(fdata.apiurl)
 function initFriendCircle(){
   var statistical_data = JSON.parse(localStorage.getItem("statisticalList"));
   var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
-  // var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+  var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
   loadStatistical(statistical_data);
   loadArticleItem(article_sortcreated ,0,fdata.initnumber)
-  // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  loadArticleItem(article_sortcreated ,0,fdata.initnumber)
 }
 
 
