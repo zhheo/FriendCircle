@@ -142,11 +142,11 @@ function initFriendCircle(){
   var currentRankChecked = document.getElementById("switchRankMode").checked
     //按更新时间排序
   if(currentRankChecked){
-    console.log("按更新时间排序");
+    // console.log("按更新时间排序");
     var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
     loadArticleItem(article_sortupdated ,0,fdata.initnumber)
   }else{
-    console.log("按创建时间排序");
+    // console.log("按创建时间排序");
     var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
     loadArticleItem(article_sortcreated ,0,fdata.initnumber)
   }
@@ -171,11 +171,11 @@ function checkRankMode(){
   // 获取当前选择的排序方式
   var currentRankChecked = document.getElementById("switchRankMode").checked
     if(currentRankChecked){
-      console.log("按更新时间排序");
+      // console.log("按更新时间排序");
       var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
       loadArticleItem(article_sortupdated ,0,fdata.initnumber)
     }else{
-      console.log("按创建时间排序");
+      // console.log("按创建时间排序");
       var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
       loadArticleItem(article_sortcreated ,0,fdata.initnumber)
     }
