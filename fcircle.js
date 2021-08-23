@@ -1,6 +1,6 @@
 // 全局变量声明区域
 const fdata = {
-  apiurl: 'https://hexo-friendcircle-api.vercel.app/api',
+  apiurl: 'https://hexo-friendcircle3-api.vercel.app/api',
   initnumber: 20, //【可选】页面初始化展示文章数量
   stepnumber: 10, //【可选】每次加载增加的篇数
   opentype: '_blank' ,//【可选】'_blank'打开新标签,'_self'本窗口打开,默认为'_blank'
@@ -54,10 +54,17 @@ var messageBoard =`
       <span class="fMessage">${sdata.article_num}/${Math.ceil(Number( sdata.article_num) / 100) * 100}</span>
     </div>
   </div>
+  <div id="switchRankBtn">
+    <span id="rankByCreated">created</span>
+    <span>
+    <input type="checkbox" id="switchRankMode" checked="true" onchange="checkRankMode()"/><label for="switchRankMode" id="switchRank">Toggle</label>
+    </span>
+    <span id="rankByUpdated">updated</span>
+  </div>
 </div>
 `;
-// 原则上信息面板应该在最前面，所以用afterbegin表示从开始符后面插入
-container.insertAdjacentHTML('afterbegin', messageBoard);
+// 原则上信息面板应该在最前面，所以用beforebegin表示从开始符前面插入
+container.insertAdjacentHTML('beforebegin', messageBoard);
 
 // 加载更多按钮
 var loadMoreBtn = `
@@ -131,11 +138,18 @@ fetch(fdata.apiurl)
 // 初始化方法
 function initFriendCircle(){
   var statistical_data = JSON.parse(localStorage.getItem("statisticalList"));
-  var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
-  // var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
   loadStatistical(statistical_data);
-  loadArticleItem(article_sortcreated ,0,fdata.initnumber)
-  // loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  var currentRankChecked = document.getElementById("switchRankMode").checked
+    //按更新时间排序
+  if(currentRankChecked){
+    console.log("按更新时间排序");
+    var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+    loadArticleItem(article_sortupdated ,0,fdata.initnumber)
+  }else{
+    console.log("按创建时间排序");
+    var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+    loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  }
 }
 
 // 加载更多文章
@@ -149,3 +163,20 @@ function loadMoreArticle(){
   // 向上滚动一篇文章的距离
   window.scrollBy(0,180)
 }
+
+//切换按钮
+function checkRankMode(){
+  // 首先清空现有的文章内容
+  document.getElementById('fcircleContainer').innerHTML=''
+  // 获取当前选择的排序方式
+  var currentRankChecked = document.getElementById("switchRankMode").checked
+    if(currentRankChecked){
+      console.log("按更新时间排序");
+      var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+      loadArticleItem(article_sortupdated ,0,fdata.initnumber)
+    }else{
+      console.log("按创建时间排序");
+      var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+      loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+    }
+  }
