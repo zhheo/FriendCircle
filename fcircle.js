@@ -1,6 +1,6 @@
 // 全局变量声明区域
 const fdata = {
-  apiurl: 'https://hexo-friendcircle3-api.vercel.app/api',
+  apiurl: 'https://hexo-friendcircle-api.vercel.app/api',
   initnumber: 20, //【可选】页面初始化展示文章数量
   stepnumber: 10, //【可选】每次加载增加的篇数
   opentype: '_blank' ,//【可选】'_blank'打开新标签,'_self'本窗口打开,默认为'_blank'
