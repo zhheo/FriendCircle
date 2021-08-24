@@ -1,35 +1,143 @@
-@font-face {
-  font-family: 'SAOUI';
-  src: url("https://cdn.jsdelivr.net/npm/akilar-candyassets/fonts/SAOUI.ttf");
-  font-display: swap;
+:root{
+  --heo-white: #fff;
+  --heo-black: #000;
+  --heo-none: rgba(0,0,0,0);
+  --heo-gray: #999999;
+  --heo-yellow: #ffc93e;
+  --heo-main: #007AFF;
+  --heo-shadow-main: 0 8px 12px -3px rgba(40, 109, 234,.20);
+  --heo-shadow-blue: 0 8px 12px -3px rgba(40, 109, 234,.20);
+  --heo-shadow-white: 0 8px 12px -3px rgba(255, 255, 255,.20);
+  --heo-shadow-black: 0 0 12px 4px rgba(0, 0, 0,.05);
+  --heo-shadow-yellow: 0px 38px 77px -26px rgba(255, 201, 62,.12);
+  --heo-shadow-red: 0 8px 12px -3px #ee7d7936;
+  --heo-shadow-green: 0 8px 12px -3px #87ee7936;
+  --heo-logo-color: linear-gradient(215deg,#4584ff 30%,#ff7676 70%);
+  --style-border: 1px solid var(--heo-card-border);
+  --heo-theme: #425AEF;
+  --heo-blue: #425AEF;
+  --heo-red: #D8213C;
+  --heo-pink: #FF7C7C;
+  --heo-green: #008200;
+  --heo-fontcolor: #363636;
+  --heo-background: #f7f9fe;
+  --heo-reverse: #000;
+  --heo-maskbg: rgba(255, 255, 255, 0.6);
+  --heo-hovertext: #5374ff;
+  --heo-ahoverbg: #F7F7FA;
+  --heo-lighttext: var(--heo-main);
+  --heo-secondtext: rgba(60, 60, 67, 0.6);
+  --heo-scrollbar: rgba(60, 60, 67, 0.4);
+  --heo-card-btn-bg: #edf0f7;
+  --heo-post-blockquote-bg: #fafcff;
+  --heo-post-tabs-bg: #f2f5f8;
+  --heo-secondbg: #edf0f7;
+  --heo-shadow-nav:0 5px 12px -5px rgba(102, 68, 68, 0.05);
+  --heo-card-bg: #fff;
+  --heo-shadow-lightblack:0 5px 12px -5px rgba(102, 68, 68, 0.00);
+  --heo-shadow-light2black:0 5px 12px -5px rgba(102, 68, 68, 0.00);
+  --heo-card-border: #e3e8f7;
 }
+
+::selection {
+  background: var(--heo-blue);
+  color: var(--heo-white);
+}
+
+[data-theme=light] {
+  --heo-theme: #425AEF;
+  --heo-blue: #425AEF;
+  --heo-red: #D8213C;
+  --heo-pink: #FF7C7C;
+  --heo-green: #008200;
+  --heo-fontcolor: #363636;
+  --heo-background: #f7f9fe;
+  --heo-reverse: #000;
+  --heo-maskbg: rgba(255, 255, 255, 0.6);
+  --heo-hovertext: #5374ff;
+  --heo-ahoverbg: #F7F7FA;
+  --heo-lighttext: var(--heo-main);
+  --heo-secondtext: rgba(60, 60, 67, 0.6);
+  --heo-scrollbar: rgba(60, 60, 67, 0.4);
+  --heo-card-btn-bg: #edf0f7;
+  --heo-post-blockquote-bg: #fafcff;
+  --heo-post-tabs-bg: #f2f5f8;
+  --heo-secondbg: #edf0f7;
+  --heo-shadow-nav:0 5px 12px -5px rgba(102, 68, 68, 0.05);
+  --heo-card-bg: #fff;
+  --heo-shadow-lightblack:0 5px 12px -5px rgba(102, 68, 68, 0.00);
+  --heo-shadow-light2black:0 5px 12px -5px rgba(102, 68, 68, 0.00);
+  --heo-card-border: #e3e8f7;
+}
+
+[data-theme=dark] {
+  --heo-theme: #0084FF;
+  --heo-blue: #0084FF;
+  --heo-red: #FF3842;
+  --heo-pink: #FF7C7C;
+  --heo-green: #00FF00;
+  --heo-fontcolor: #F7F7FA;
+  --heo-background: #18171d;
+  --heo-reverse: #fff;
+  --heo-maskbg: rgba(0,0,0, 0.6);
+  --heo-hovertext: #0A84FF;
+  --heo-ahoverbg: #fff;
+  --heo-lighttext: #f2b94b;
+  --heo-secondtext: #a1a2b8;
+  --heo-scrollbar: rgba(200, 200, 223, 0.4);
+  --heo-card-btn-bg: #30343f;
+  --heo-post-blockquote-bg: #000;
+  --heo-post-tabs-bg: #121212;
+  --heo-secondbg: #30343f;
+  --heo-shadow-nav:0 5px 20px 0px rgba(28, 28, 28, 0.4);
+  --heo-card-bg: #1d1b26;
+  --heo-shadow-lightblack:0 5px 12px -5px rgba(102, 68, 68, 0.0);
+  --heo-shadow-light2black:0 5px 12px -5px rgba(102, 68, 68, 0.0);
+  --heo-card-border: #42444a;
+}
+
+@media screen and (max-width: 768px){
+  :root{
+    --style-border: 0px solid var(--heo-card-border);
+  }
+}
+
 #fMessageBoard {
   font-size: 20px;
-  background: rgba(249,249,249,0.8);
-  color: rgba(60,60,61,0.7);
-  border-radius: 5px;
+  background: var(--heo-background);
+  color: var(--heo-fontcolor);
+  border-radius: 12px;
   font-weight: bolder;
-  box-shadow: 2px 2px 10px #888;
-  font-family: 'SAOUI' !important;
+  box-shadow: none;
   width: 90%;
   max-width: 810px;
   margin: auto;
-  height: 260px;
+  height: 160px;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 2rem;
 }
 #fMessageBoard .fUpdatedTime {
-  padding-top: 10px !important;
   text-align: center;
   height: 40px;
+  order: 1;
+  width: 60%;
+  line-height: 40px;
 }
 #fMessageBoard .fMessageItem {
-  background: rgba(207,207,207,0.8);
-  box-shadow: 0px 0px 15px #bcbcbc inset;
+  background: var(--heo-background);
+  order: 0;
+  width: 100%;
+  display: flex;
 }
 #fMessageBoard .fMessageItem .fItem {
-  height: 60px;
+  height: 80px;
   background: transparent;
   display: flex;
+  flex-direction: column;
+  width: 33%;
 }
 #fMessageBoard .fMessageItem .fItem .fLabel {
   padding: 0 3%;
@@ -51,16 +159,17 @@
   width: 25%;
 }
 #fMessageBoard #switchRankBtn {
-  width: auto;
   max-width: 250px;
   height: 40px;
   display: flex;
   text-align: center;
-  margin: auto;
+  margin: 0;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: space-around;
+  order: 2;
+  width: 40%;
 }
 #fMessageBoard #switchRankBtn #rankByCreated {
   font-size: 20px;
@@ -116,18 +225,22 @@
   max-width: 810px;
   height: 30px;
   margin: auto;
-  background: rgba(249,249,249,0.8);
-  color: rgba(60,60,61,0.7);
-  box-shadow: 2px 2px 10px #888;
-  border-radius: 5px;
+  background: var(--heo-background);
+  color: var(--heo-lighttext);
+  border-radius: 12px;
   font-weight: bolder;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#fcircleMoreBtn:hover{
+  color: var(--heo-white);
+  background: var(--heo-main);
 }
 #fcircleContainer {
-  font-family: 'SAOUI' !important;
   width: 100%;
   max-width: 900px;
   height: auto;
@@ -138,98 +251,86 @@
 }
 #fcircleContainer .fArticleItem {
   margin: 20px 5%;
-  height: 150px;
   display: flex;
-  background: rgba(249,249,249,0.8);
   color: rgba(60,60,61,0.7);
   border-radius: 5px;
   font-weight: bolder;
-  box-shadow: 2px 2px 10px #888;
   overflow: hidden;
+  flex-direction: column;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar {
-  width: 30%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding: 0 1rem 0.5rem 1rem;
+  order: 1;
+  transform: translateY(-23px);
+  width: 9rem;
+  height: 0px;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar .fAvatar {
   align-self: center;
   text-align: center;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar .fAvatar img {
-  width: 75px;
-  height: 75px;
-  margin: 15px 5px !important;
-  border-radius: 25px;
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar .fAvatar .img-alt.is-center {
   display: none;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar .fArticleAuthor {
-  width: 80%;
-  margin: 3px 0px;
+  margin: 0 0.5rem;
   align-self: center;
   text-align: center;
-  transform: skewX(-10deg);
   height: 22px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--heo-fontcolor);
 }
 #fcircleContainer .fArticleItem .fArticleMessage {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  padding: 0 1rem 0.8rem 1rem;
+  background: var(--heo-background);
+  border-radius: 12px;
+  order: 0;
 }
 #fcircleContainer .fArticleItem .fArticleMessage a.fArticleTitle {
-  align-self: center;
-  text-align: center;
+  align-self: start;
+  text-align: left;
   font-size: 20px;
   line-height: 40px;
-  width: 80%;
-  padding: 0 10%;
-  color: rgba(60,60,61,0.7);
+  padding: 0;
+  color: var(--heo-fontcolor);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: 0.3s;
 }
-#fcircleContainer .fArticleItem .fArticleMessage a.fArticleTitle:hover:before {
-  position: fixed;
-  width: fit-content;
-  max-width: 80%;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 10%;
-  border-radius: 10px;
-  text-align: center;
-  z-index: 100;
-  content: attr(data-title);
-  font-size: 20px;
-  color: #fff;
-  padding: 10px;
-  background-color: rgba(60,60,61,0.7);
-  white-space: break-spaces;
+
+#fcircleContainer .fArticleItem .fArticleMessage a.fArticleTitle:hover{
+  color: var(--heo-main);
 }
+
 #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime {
   width: 100%;
-  height: 110px;
   text-align: center;
   display: flex;
+  margin-left: 9rem;
 }
 #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime .fArticleCreated {
-  width: 40%;
-  margin: 5% 0% 5% 10%;
-  text-align: center;
+  margin-right: 1rem;
+  text-align: left;
   align-self: center;
-  padding: 15px 0;
+  color: var(--heo-secondtext);
 }
 #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime .fArticleUpdated {
-  width: 40%;
-  margin: 5% 10% 5% 0%;
-  text-align: center;
+  margin-right: 1rem;
+  text-align: left;
   align-self: center;
-  padding: 15px 0;
+  color: var(--heo-secondtext);
 }
 #fcircleContainer .fArticleItem .fArticleMessage .fArticleTime i:before {
   margin-right: 5px;
