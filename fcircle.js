@@ -5,6 +5,7 @@ var fdata = {
   stepnumber: 10 //【可选】每次加载增加的篇数
 }
 
+//===========================================================
 // 排序算法
 function quickSort(arr, keyword){
   // keyword传入值'time'（按发布时间排序）或'updated'（按更新时间排序）
@@ -112,43 +113,47 @@ container.insertAdjacentHTML('beforeend', articleItem);
 
 // ======================================================
 // 抓取友链api信息并进行分割处理。存入本地存储
-fetch(fdata.apiurl)
-  .then(res => res.json())
-  .then(json =>{
-    // 获取友链朋友圈基本信息
-    var statistical_data = json.statistical_data;
-    //存入本地存储
-    localStorage.setItem("statisticalList",JSON.stringify(statistical_data))
-    // console.log(statistical_data);
-    // 获取友链朋友圈文章列表
-    var article_data = eval(json.article_data);
-    // console.log(article_data);
-    // 按创建时间排序
-    var article_sortcreated = quickSort(article_data,'time');
-    //存入本地存储
-    localStorage.setItem("createdList",JSON.stringify(article_sortcreated))
-    // 按更新时间排序
-    var article_sortupdated = quickSort(article_data,'updated');
-    //存入本地存储
-    localStorage.setItem("updatedList",JSON.stringify(article_sortupdated))
-    // console.log(article_sortcreated);
-    // console.log(article_sortupdated);
-  }
-)
+if (fdata){
+  fetch(fdata.apiurl)
+    .then(res => res.json())
+    .then(json =>{
+      // 获取友链朋友圈基本信息
+      var statistical_data = json.statistical_data;
+      //存入本地存储
+      localStorage.setItem("statisticalList",JSON.stringify(statistical_data))
+      // console.log(statistical_data);
+      // 获取友链朋友圈文章列表
+      var article_data = eval(json.article_data);
+      // console.log(article_data);
+      // 按创建时间排序
+      var article_sortcreated = quickSort(article_data,'time');
+      //存入本地存储
+      localStorage.setItem("createdList",JSON.stringify(article_sortcreated))
+      // 按更新时间排序
+      var article_sortupdated = quickSort(article_data,'updated');
+      //存入本地存储
+      localStorage.setItem("updatedList",JSON.stringify(article_sortupdated))
+      // console.log(article_sortcreated);
+      // console.log(article_sortupdated);
+    }
+  )
+}
 // 初始化方法
 function initFriendCircle(){
   var statistical_data = JSON.parse(localStorage.getItem("statisticalList"));
   loadStatistical(statistical_data);
-  var currentRankChecked = document.getElementById("switchRankMode").checked
+  var switchRankMode = document.getElementById("switchRankMode");
+  if (switchRankMode  && fdata){
     //按更新时间排序
-  if(currentRankChecked){
-    // console.log("按更新时间排序");
-    var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
-    loadArticleItem(article_sortupdated ,0,fdata.initnumber)
-  }else{
-    // console.log("按创建时间排序");
-    var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
-    loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+    if(switchRankMode.checked){
+      // console.log("按更新时间排序");
+      var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+      loadArticleItem(article_sortupdated ,0,fdata.initnumber)
+    }else{
+      // console.log("按创建时间排序");
+      var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+      loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+    }
   }
 }
 
@@ -169,15 +174,18 @@ function checkRankMode(){
   // 首先清空现有的文章内容
   document.getElementById('fcircleContainer').innerHTML=''
   // 获取当前选择的排序方式
-  var currentRankChecked = document.getElementById("switchRankMode").checked
-    if(currentRankChecked){
-      // console.log("按更新时间排序");
-      var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
-      loadArticleItem(article_sortupdated ,0,fdata.initnumber)
-    }else{
-      // console.log("按创建时间排序");
-      var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
-      loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+  var switchRankMode = document.getElementById("switchRankMode");
+    if (switchRankMode && fdata){
+      //按更新时间排序
+      if(switchRankMode.checked){
+        // console.log("按更新时间排序");
+        var article_sortupdated = JSON.parse(localStorage.getItem("updatedList"));
+        loadArticleItem(article_sortupdated ,0,fdata.initnumber)
+      }else{
+        // console.log("按创建时间排序");
+        var article_sortcreated = JSON.parse(localStorage.getItem("createdList"));
+        loadArticleItem(article_sortcreated ,0,fdata.initnumber)
+      }
     }
   }
 //执行初始化方法
