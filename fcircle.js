@@ -60,17 +60,18 @@ var messageBoard =`
   </div>
 </div>
 `;
-// 原则上信息面板应该在最前面，所以用beforebegin表示从开始符前面插入
-container.insertAdjacentHTML('beforebegin', messageBoard);
-
 // 加载更多按钮
 var loadMoreBtn = `
 <div id="fcircleMoreBtn" onclick="loadMoreArticle()">
   <i class="fas fa-angle-double-down"></i>
 </div>
 `
-// 为了不影响文章加载，选择afterend表示从结束符后面插入
-container.insertAdjacentHTML('afterend', loadMoreBtn);
+// 原则上信息面板应该在最前面，所以用beforebegin表示从开始符前面插入
+if(container){
+  container.insertAdjacentHTML('beforebegin', messageBoard);
+  // 为了不影响文章加载，选择afterend表示从结束符后面插入
+  container.insertAdjacentHTML('afterend', loadMoreBtn);
+  }
 }
 
 // ======================================================
@@ -101,9 +102,11 @@ var articleItem=`
       </div>
     </div>
   </div>
-`
+`;
+if(container){
 // 为了便于和后续拼接，选择从容器尾部插入
 container.insertAdjacentHTML('beforeend', articleItem);
+    }
   }
 }
 
@@ -177,3 +180,5 @@ function checkRankMode(){
       loadArticleItem(article_sortcreated ,0,fdata.initnumber)
     }
   }
+//执行初始化方法
+initFriendCircle()
