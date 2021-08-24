@@ -1,11 +1,8 @@
 // 全局变量声明区域
-const fdata = {
+var fdata = {
   apiurl: 'https://hexo-friendcircle-api.vercel.app/api',
   initnumber: 20, //【可选】页面初始化展示文章数量
-  stepnumber: 10, //【可选】每次加载增加的篇数
-  opentype: '_blank' ,//【可选】'_blank'打开新标签,'_self'本窗口打开,默认为'_blank'
-  nofollow: true ,//【可选】开启禁止搜索引擎抓取,默认开启
-  preload: ''//【可选】加载动画图片链接
+  stepnumber: 10 //【可选】每次加载增加的篇数
 }
 
 // 排序算法
@@ -87,7 +84,7 @@ var item = datalist[i];
 var articleItem=`
   <div class="fArticleItem">
     <div class="fArticleAvatar">
-      <a class="fArticlelink fAvatar" href="${item.link}">
+      <a class="fArticlelink fAvatar" target="_blank" rel="noopener nofollow" href="${item.link}">
         <img src="${item.avatar}" alt="avatar">
       </a>
       <div class="fArticleAuthor">
@@ -95,7 +92,7 @@ var articleItem=`
       </div>
     </div>
     <div class="fArticleMessage">
-      <a class="fArticleTitle"  href="${item.link}" data-title="${item.title}">
+      <a class="fArticleTitle"  href="${item.link}" target="_blank" rel="noopener nofollow" data-title="${item.title}">
         ${item.title}
       </a>
       <div class="fArticleTime">

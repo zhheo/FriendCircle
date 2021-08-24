@@ -18,9 +18,9 @@
   overflow: hidden;
 }
 #fMessageBoard .fUpdatedTime {
-  padding-top: 10px;
+  padding-top: 10px !important;
   text-align: center;
-  height: 30px;
+  height: 40px;
 }
 #fMessageBoard .fMessageItem {
   background: rgba(207,207,207,0.8);
@@ -35,7 +35,7 @@
   padding: 0 3%;
   align-self: center;
   text-align: center;
-  width: 19%;
+  width: 25%;
   overflow: hidden;
 }
 #fMessageBoard .fMessageItem .fItem .fMeasureBar {
@@ -48,7 +48,7 @@
   align-self: center;
   text-align: center;
   padding: 0 3%;
-  width: 19%;
+  width: 25%;
 }
 #fMessageBoard #switchRankBtn {
   width: auto;
@@ -159,8 +159,11 @@
 #fcircleContainer .fArticleItem .fArticleAvatar .fAvatar img {
   width: 75px;
   height: 75px;
-  margin: 15px 5px;
+  margin: 15px 5px !important;
   border-radius: 25px;
+}
+#fcircleContainer .fArticleItem .fArticleAvatar .fAvatar .img-alt.is-center {
+  display: none;
 }
 #fcircleContainer .fArticleItem .fArticleAvatar .fArticleAuthor {
   width: 80%;
